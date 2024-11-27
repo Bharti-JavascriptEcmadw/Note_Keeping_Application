@@ -19,8 +19,21 @@ const App = () => {
   const [currentNote, setCurrentNote] = useState({ title: '', tagline: '', body: '' });
   const [showModal, setShowModal] = useState(false);
 
+  // Default demo note to display if no notes exist
+  const defaultNote = {
+    id: uuidv4(),
+    title: 'Add Notes',
+    tagline: 'This is a demo note.',
+    body: 'This is the body of the demo note. Please add your own notes!',
+    pinned: false,
+    timestamp: new Date(),
+  };
+
+  // Use defaultNote if no notes exist in the state
+  const notesToDisplay = notes.length > 0 ? notes : [defaultNote];
+
   // Pagination and sorting
-  const paginatedNotes = [...notes]
+  const paginatedNotes = [...notesToDisplay]
     .sort((a, b) => {
       if (a.pinned !== b.pinned) {
         return b.pinned - a.pinned;
@@ -84,7 +97,7 @@ const App = () => {
     dispatch(setPage(newPage));
   };
 
-  const totalPages = Math.ceil(notes.length / notesPerPage);
+  const totalPages = Math.ceil(notesToDisplay.length / notesPerPage);
 
   return (
     <ErrorBoundary>
@@ -112,7 +125,7 @@ const App = () => {
                 />
               ))
             ) : (
-              <p className="text-center m-4 p-9 text-6xl  text-blue-900">Please Click On Add Notes  </p>
+              <p className="text-center m-4 p-9 text-6xl text-blue-900">Please Click On Add Notes</p>
             )}
           </div>
         </div>
