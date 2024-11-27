@@ -112,7 +112,7 @@ const App = () => {
                 />
               ))
             ) : (
-              <p className="text-center text-gray-500">No notes to display</p>
+              <p className="text-center m-4 p-9 text-6xl  text-blue-900">Please Click On Add Notes  </p>
             )}
           </div>
         </div>
